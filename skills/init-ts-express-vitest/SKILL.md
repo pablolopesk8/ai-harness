@@ -8,12 +8,6 @@ argument-hint: Init project
 
 # Skill: TypeScript + Express + tsx + Vitest Project Initialization
 
-## Inputs
-
-- **Project name** (required): provided as `$ARGUMENTS` by the prompt. If missing
-  or empty, ask the user for a name before proceeding. The name must be a valid
-  npm package name (lowercase, no spaces, may contain hyphens).
-
 ## Goal
 
 Set up a complete TypeScript project with ExpressJS, Vitest, Prettier, and ESLint
@@ -25,11 +19,6 @@ in development.
 
 ### 1. Prepare
 
-Determine the project name:
-
-- If `$ARGUMENTS` is provided and non-empty, use it.
-- Otherwise, ask the user: "What is the project name?" and wait for the answer.
-
 Run:
 
 ```bash
@@ -40,7 +29,7 @@ Then edit `package.json` to set the project name and ESM fields:
 
 ```json
 {
-  "name": "<project-name>",
+  "name": "ts-express-vitest",
   "version": "0.1.0",
   "type": "module",
   "main": "dist/server.js",
@@ -86,10 +75,18 @@ Create the `src/` folder and the `src/routes/` subfolder. Copy:
 | `src/app.test.ts` | `templates/app.test.ts` |
 | `src/server.ts` | `templates/server.ts` |
 | `src/routes/health.ts` | `templates/routes-health.ts` |
+| `src/middleware/error-handler.ts` | `templates/error-handler.ts` |
+| `src/middleware/error-handler.test.ts` | `templates/error-handler.test.ts` |
+| `.env.example` | `templates/env.example` |
+| `.env | `templates/env.example` |
 
 **Important:** With `"module": "NodeNext"`, every relative import **must**
 include the `.js` extension, even though the source file is `.ts`. Example:
 `import app from './app.js'` and `import healthRouter from './routes/health.js'`.
+
+**Important:** Register errorHandler in src/app.ts after all routers. It must be the
+last app.use(...) call. Express identifies error middleware by its 4-argument
+signature (err, req, res, next); do not drop any parameter.
 
 **Convention:** All Express routes live under `src/routes/`, one file per
 resource, each exporting an Express `Router`. Register routers in `src/app.ts`
@@ -143,6 +140,7 @@ The README must document:
 - All available npm scripts (matching `package.json`)
 - Project structure
 - Coding conventions
+- Environment variables: mention that a .env file is required (copy from .env.example) and list every variable it can contain.
 
 After writing the README, verify that every script listed in the "Available
 Commands" table exists in `package.json`. If any script is missing or renamed,

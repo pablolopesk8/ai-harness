@@ -1,4 +1,4 @@
-# {{PROJECT_NAME}}
+# ts-express-vitest
 
 A TypeScript + Express API with Vitest, Prettier, and ESLint.
 
