@@ -3,6 +3,7 @@ name: init-ts-express-vitest
 description: >
   Initialize a TypeScript project with ExpressJS, Vitest, Prettier, and ESLint.
   Use when the user asks to create a new TypeScript backend project, set up Express with TypeScript, or mentions "setup ts express".
+argument-hint: Init project
 ---
 
 # Skill: TypeScript + Express + tsx + Vitest Project Initialization
